@@ -9,13 +9,18 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { MoviesService } from './movies.service';
+import { Movie } from './entities/movie.entity';
 
 @Controller('movies')
 export class MoviesController {
+  constructor(private readonly moviesService: MoviesService) {}
+
   @Get()
-  getAll() {
-    return 'All Movies';
+  getAll(): Movie[] {
+    return this.moviesService.getAll();
   }
+
   //:id보다 위에있어야한다.
   // 그렇게 하지 않으면 search를 id로 판단한다.
   @Get('/search')
@@ -24,18 +29,18 @@ export class MoviesController {
   }
 
   @Get('/:id')
-  getOne(@Param('id') id: string) {
-    return `Return One Movie id: ${id}`;
+  getOne(@Param('id') id: string): Movie {
+    return this.moviesService.getOne(id);
   }
 
   @Post()
   create(@Body() data) {
-    return data;
+    return this.moviesService.create(data);
   }
 
   @Delete('/:id')
   remove(@Param('id') id: string) {
-    return `Remove movie : ${id}`;
+    return this.moviesService.deleteOne(id);
   }
 
   @Patch('/:id')
