@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { Movie } from './entities/movie.entity';
+import { CreateMoiveDto as CreateMovieDto } from './dto/create_movie.dto';
 
 @Controller('movies')
 export class MoviesController {
@@ -34,7 +35,7 @@ export class MoviesController {
   }
 
   @Post()
-  create(@Body() data) {
+  create(@Body() data: CreateMovieDto) {
     return this.moviesService.create(data);
   }
 
