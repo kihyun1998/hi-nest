@@ -9,9 +9,9 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { MoviesService } from './movies.service';
-import { Movie } from './entities/movie.entity';
 import { CreateMoiveDto as CreateMovieDto } from './dto/create_movie.dto';
+import { Movie } from './entities/movie.entity';
+import { MoviesService } from './movies.service';
 
 @Controller('movies')
 export class MoviesController {
@@ -30,7 +30,7 @@ export class MoviesController {
   }
 
   @Get('/:id')
-  getOne(@Param('id') id: string): Movie {
+  getOne(@Param('id') id: number): Movie {
     return this.moviesService.getOne(id);
   }
 
@@ -40,12 +40,12 @@ export class MoviesController {
   }
 
   @Delete('/:id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.moviesService.deleteOne(id);
   }
 
   @Patch('/:id')
-  updateOne(@Param('id') id: string, @Body() updateData) {
+  updateOne(@Param('id') id: number, @Body() updateData) {
     return this.moviesService.update(id, updateData);
   }
 
